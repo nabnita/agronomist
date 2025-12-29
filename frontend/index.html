@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroMind AI - Smart Crop Recommendation</title>
+    <meta name="description" content="AI-powered crop recommendation system with explainable insights and sustainability analysis">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🌱 AgroMind AI</h1>
+                <p class="tagline">Smart Crop Recommendations for Sustainable Farming</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Input Section -->
+            <section class="input-section glass-card">
+                <h2 class="section-title">Soil & Climate Parameters</h2>
+                
+                <div class="input-grid">
+                    <!-- Soil Parameters -->
+                    <div class="input-group">
+                        <h3 class="group-title">Soil Nutrients</h3>
+                        
+                        <div class="slider-container">
+                            <label for="nitrogen-input" class="slider-label">
+                                <span>Nitrogen (N)</span>
+                                <span class="slider-value" id="nitrogen-value">50</span>
+                            </label>
+                            <input type="range" id="nitrogen-input" class="slider" min="0" max="140" value="50" step="1">
+                            <div class="slider-range">
+                                <span>0</span>
+                                <span>140 kg/ha</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label for="phosphorus-input" class="slider-label">
+                                <span>Phosphorus (P)</span>
+                                <span class="slider-value" id="phosphorus-value">50</span>
+                            </label>
+                            <input type="range" id="phosphorus-input" class="slider" min="5" max="145" value="50" step="1">
+                            <div class="slider-range">
+                                <span>5</span>
+                                <span>145 kg/ha</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label for="potassium-input" class="slider-label">
+                                <span>Potassium (K)</span>
+                                <span class="slider-value" id="potassium-value">50</span>
+                            </label>
+                            <input type="range" id="potassium-input" class="slider" min="5" max="205" value="50" step="1">
+                            <div class="slider-range">
+                                <span>5</span>
+                                <span>205 kg/ha</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label for="ph-input" class="slider-label">
+                                <span>pH Level</span>
+                                <span class="slider-value" id="ph-value">6.5</span>
+                            </label>
+                            <input type="range" id="ph-input" class="slider" min="3.5" max="9.5" value="6.5" step="0.1">
+                            <div class="slider-range">
+                                <span>3.5</span>
+                                <span>9.5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Climate Parameters -->
+                    <div class="input-group">
+                        <h3 class="group-title">Climate Conditions</h3>
+                        
+                        <div class="slider-container">
+                            <label for="temperature-input" class="slider-label">
+                                <span>Temperature</span>
+                                <span class="slider-value" id="temperature-value">25</span>
+                            </label>
+                            <input type="range" id="temperature-input" class="slider" min="8" max="45" value="25" step="0.1">
+                            <div class="slider-range">
+                                <span>8°C</span>
+                                <span>45°C</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label for="humidity-input" class="slider-label">
+                                <span>Humidity</span>
+                                <span class="slider-value" id="humidity-value">70</span>
+                            </label>
+                            <input type="range" id="humidity-input" class="slider" min="14" max="100" value="70" step="1">
+                            <div class="slider-range">
+                                <span>14%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label for="rainfall-input" class="slider-label">
+                                <span>Rainfall</span>
+                                <span class="slider-value" id="rainfall-value">150</span>
+                            </label>
+                            <input type="range" id="rainfall-input" class="slider" min="20" max="300" value="150" step="1">
+                            <div class="slider-range">
+                                <span>20mm</span>
+                                <span>300mm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="predict-btn" class="btn btn-primary">
+                    <span>🔍 Get Crop Recommendations</span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section hidden">
+                <h2 class="section-title">Recommended Crops</h2>
+                <div id="crop-cards" class="crop-cards"></div>
+            </section>
+
+            <!-- Explanation Section -->
+            <section id="explanation-section" class="explanation-section glass-card hidden">
+                <h2 class="section-title">Why This Crop?</h2>
+                <div id="explanation-content"></div>
+            </section>
+
+            <!-- Sustainability Section -->
+            <section id="sustainability-section" class="sustainability-section glass-card hidden">
+                <h2 class="section-title">Sustainability Analysis</h2>
+                <div id="sustainability-content"></div>
+            </section>
+
+            <!-- AI Agronomist Section -->
+            <section class="ai-section glass-card">
+                <h2 class="section-title">🤖 AI Agronomist</h2>
+                <p class="section-description">Get expert farming advice powered by AI</p>
+                
+                <div class="ai-input-group">
+                    <input type="text" id="crop-name-input" class="ai-input" placeholder="Enter crop name (e.g., rice, maize)">
+                    <input type="text" id="location-input" class="ai-input" placeholder="Location (optional)">
+                    <button id="ai-advice-btn" class="btn btn-secondary">
+                        <span>💡 Get AI Advice</span>
+                    </button>
+                </div>
+
+                <div id="ai-response" class="ai-response hidden"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AgroMind AI - Empowering Farmers with AI & Sustainability</p>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
