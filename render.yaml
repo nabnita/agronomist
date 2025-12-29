@@ -1,0 +1,30 @@
+services:
+  # Backend API Service
+  - type: web
+    name: agromind-ai-backend
+    runtime: python
+    plan: free
+    buildCommand: chmod +x build.sh && ./build.sh
+    startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: false
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: GEMINI_API_KEY
+        sync: false  # Set this manually in Render dashboard
+    healthCheckPath: /api/health
+
+  # Frontend Static Site
+  - type: web
+    name: agromind-ai-frontend
+    runtime: static
+    plan: free
+    buildCommand: echo "No build needed for static site"
+    staticPublishPath: ./frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -4,6 +4,7 @@ AgroMind AI - Flask Application
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 import sys
+import os
 from pathlib import Path
 
 # Add current directory to path
@@ -65,14 +66,17 @@ def main():
     # Create app
     app = create_app()
     
+    # Get port from environment (for Render) or config
+    port = int(os.environ.get('PORT', Config.PORT))
+    
     # Run server
-    print(f"✓ Server running on http://localhost:{Config.PORT}")
+    print(f"✓ Server running on http://localhost:{port}")
     print(f"✓ Debug mode: {Config.DEBUG}")
     print("=" * 60)
     
     app.run(
         host='0.0.0.0',
-        port=Config.PORT,
+        port=port,
         debug=Config.DEBUG
     )
 
